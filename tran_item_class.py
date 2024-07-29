@@ -141,17 +141,17 @@ class TranItem:
         return self.added_vals
     
     def metrics(self):
-        if self.df.shape[0] > 5 and self.final.shape[0] > 5:
-            fig_qty = get_column_plot(self.df, self.final, self.metadata, 'QTY')
-            fig_qty.data[0].marker.color = 'red'
-            fig_retail = get_column_plot(self.df, self.final, self.metadata, 'UNIT_RETAIL')
-            fig_retail.data[0].marker.color = 'red'
-        else:
-            fig_qty = fig_retail = "No metrics available for this dataset."
+        # if self.df.shape[0] > 5 and self.final.shape[0] > 5:
+        #     fig_qty = get_column_plot(self.df, self.final, self.metadata, 'QTY')
+        #     fig_qty.data[0].marker.color = 'red'
+        #     fig_retail = get_column_plot(self.df, self.final, self.metadata, 'UNIT_RETAIL')
+        #     fig_retail.data[0].marker.color = 'red'
+        # else:
+        #     fig_qty = fig_retail = "No metrics available for this dataset."
         metrics_string = "Number of rows generated: "+str(self.final.shape[0])+"  \nOverall Quality Score: "+str(round((evaluate_quality(self.df, self.final, self.metadata).get_score())*100,2))+"%"
         unique_df = pd.DataFrame(columns=['Attribute', 'Invalid', 'Valid'])
         unique_df.loc[0] = ['ITEM', self.final[~self.final['ITEM'].isin(self.df['ITEM'])].shape[0], self.final[self.final['ITEM'].isin(self.df['ITEM'])].shape[0]]
         unique_df.loc[1] = ['DEPT', self.final[~self.final['DEPT'].isin(self.df['DEPT'])].shape[0], self.final[self.final['DEPT'].isin(self.df['DEPT'])].shape[0]]
         unique_df.loc[2] = ['CLASS', self.final[~self.final['CLASS'].isin(self.df['CLASS'])].shape[0], self.final[self.final['CLASS'].isin(self.df['CLASS'])].shape[0]]
         unique_df.loc[3] = ['SUBCLASS', self.final[~self.final['SUBCLASS'].isin(self.df['SUBCLASS'])].shape[0], self.final[self.final['SUBCLASS'].isin(self.df['SUBCLASS'])].shape[0]]
-        return metrics_string, unique_df, fig_qty, fig_retail
+        return metrics_string, unique_df

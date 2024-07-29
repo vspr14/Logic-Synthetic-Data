@@ -34,7 +34,7 @@ def change_model():
     st.session_state.model = model 
 
 st.set_page_config(
-   page_title="GenAI App",
+   page_title="Synthetic Data Generation",
    layout="wide",
    initial_sidebar_state="expanded",
 )
